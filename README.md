@@ -9,13 +9,9 @@ The main objective of this project is to provide a low-cost, reliable, and real-
 🎯 Objectives
 
 To measure water quality using a TDS sensor
-
 To process sensor data using ESP32
-
 To transmit real-time data to the cloud
-
 To enable remote monitoring through a web dashboard
-
 To reduce manual water testing efforts
 
 🛠️ Hardware Components
