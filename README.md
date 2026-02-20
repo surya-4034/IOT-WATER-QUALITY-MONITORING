@@ -16,14 +16,17 @@ ________________________________________
 ________________________________________
 🛠️ Hardware Components
 •	ESP32 Development Board
+<img width="300" height="300" alt="Screenshot 2026-02-21 015723" src="https://github.com/user-attachments/assets/14a4c91c-00ce-4b08-9c69-1a3a2cbe3bc8" />
+
 •	TDS Sensor Module
+<img width="300" height="300" alt="Screenshot 2026-02-21 015723" src="https://github.com/user-attachments/assets/437bf549-37ba-42ee-a312-a03f801e0c61" />
+
 •	Jumper Wires
-•	Breadboard
 •	USB Cable (Power Supply)
 •	Wi-Fi Internet Connection
 ________________________________________
 💻 Software Requirements
-•	Arduino IDE (Version 2.x Recommended)
+•	Arduino IDE (Version 1.8.19 Recommended)
 •	ESP32 Board Package Installed
 •	Required Libraries:
 o	WiFi.h
@@ -61,12 +64,8 @@ Note: ThingSpeak updates data every 15 seconds (minimum interval).
 ________________________________________
 📊 TDS Water Quality Reference
 TDS (ppm)	Water Quality
-0–50	Very Pure
-50–150	Excellent
-150–300	Good
-300–500	Fair
-500–1000	Poor
-Above 1000	Unsafe
+<img width="1812" height="1023" alt="Screenshot 2026-02-21 015454" src="https://github.com/user-attachments/assets/2aeab84b-2abe-4e8d-b718-6ed5c83ea7e1" />
+
 ________________________________________
 🧪 Testing Procedure
 •	Dipped probe in water sample
