@@ -46,6 +46,8 @@ VCC	3.3V / 5V
 GND	GND
 AOUT	GPIO 34 (Analog Input)
 Ensure proper grounding for stable readings.
+<img width="405" height="198" alt="Screenshot 2026-02-21 004319" src="https://github.com/user-attachments/assets/7fca7b73-4fac-4f86-8209-0111e5f2daa2" />
+
 ________________________________________
 ☁️ Cloud Integration (ThingSpeak Setup)
 1.	Create an account on ThingSpeak.
