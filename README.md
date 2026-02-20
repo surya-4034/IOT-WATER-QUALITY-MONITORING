@@ -98,6 +98,7 @@ System successfully measured and transmitted water quality data.
 
 <img width="500" height="500" alt="Screenshot 2026-02-21 011444" src="https://github.com/user-attachments/assets/f594a6b2-bf4a-4bdf-8d6f-71c93e9f4536" />
 
+<img width="2385" height="564" alt="Screenshot 2026-02-21 023125" src="https://github.com/user-attachments/assets/55ca8b1b-6772-48c7-bc4a-8b94f3307858" />
 
 
 ________________________________________
