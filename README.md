@@ -2,10 +2,12 @@
 Using ESP32 & TDS Sensor with ThingSpeak Cloud
 ________________________________________
 📌 Project Overview
-This project presents an IoT-Based Water Quality Monitoring System developed using the ESP32 microcontroller and a Total Dissolved Solids (TDS) sensor. The system continuously measures the TDS level of water and uploads the data to the cloud platform ThingSpeak for real-time monitoring and visualization.
+This project presents an IoT-Based Water Quality Monitoring System developed using the ESP32 microcontroller and a Total Dissolved Solids (TDS) sensor. 
+The system continuously measures the TDS level of water and uploads the data to the cloud platform ThingSpeak for real-time monitoring and visualization.
 The main objective of this project is to provide a low-cost, reliable, and real-time solution for monitoring water quality remotely using IoT technology.
 ________________________________________
 🎯 Objectives
+
 •	To measure water quality using a TDS sensor
 •	To process sensor data using ESP32
 •	To transmit real-time data to the cloud
