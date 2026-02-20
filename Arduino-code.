@@ -1,0 +1,109 @@
+#include <WiFi.h>
+#include "ThingSpeak.h"
+
+// ---------- TDS SETTINGS ----------
+#define TDS_PIN 34
+#define VREF 3.3
+#define ADC_RESOLUTION 4095.0
+#define SAMPLE_COUNT 30
+
+float temperature = 25.0;        // assumed room temperature
+float calibrationFactor = 1.00;  // change after calibration
+
+int analogBuffer[SAMPLE_COUNT];
+int indexBuffer = 0;
+
+unsigned long lastUpload = 0;
+
+// ---------- WIFI SETTINGS ----------
+const char* ssid = "Enter wifi name";
+const char* password = "Enter Password";
+
+// ---------- THINGSPEAK SETTINGS ----------
+unsigned long channelID = Enter Thinkspeak channel ID;
+const char* apiKey = "API key ";
+
+WiFiClient client;
+
+void setup() {
+  Serial.begin(115200);
+  delay(2000);
+  Serial.println("ESP32 Water Quality Monitoring Started");
+
+  // Connect WiFi
+  Serial.print("Connecting to WiFi");
+  WiFi.begin(ssid, password);
+
+  int tries = 0;
+  while (WiFi.status() != WL_CONNECTED && tries < 20) {
+    delay(500);
+    Serial.print(".");
+    tries++;
+  }
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\nWiFi Connected!");
+    Serial.print("IP Address: ");
+    Serial.println(WiFi.localIP());
+  } else {
+    Serial.println("\nWiFi Failed!");
+  }
+
+  ThingSpeak.begin(client);
+}
+
+void loop() {
+
+  // Continuous sampling
+  analogBuffer[indexBuffer] = analogRead(TDS_PIN);
+  indexBuffer++;
+  if (indexBuffer >= SAMPLE_COUNT) indexBuffer = 0;
+
+  // Upload every 15 seconds (ThingSpeak limit)
+  if (millis() - lastUpload > 15000) {
+
+    lastUpload = millis();
+
+    // Average ADC
+    int sum = 0;
+    for (int i = 0; i < SAMPLE_COUNT; i++) {
+      sum += analogBuffer[i];
+    }
+
+    float averageADC = sum / (float)SAMPLE_COUNT;
+
+    // Convert to voltage
+    float voltage = averageADC * VREF / ADC_RESOLUTION;
+
+    // Temperature compensation
+    float compensationCoefficient = 1.0 + 0.02 * (temperature - 25.0);
+    float compensationVoltage = voltage / compensationCoefficient;
+
+    // TDS formula
+    float tdsValue = (133.42 * compensationVoltage * compensationVoltage * compensationVoltage
+                     - 255.86 * compensationVoltage * compensationVoltage
+                     + 857.39 * compensationVoltage) * 0.5;
+
+    // Apply calibration
+    tdsValue = tdsValue * calibrationFactor;
+
+    if (tdsValue < 0) tdsValue = 0;
+
+    // Print serial output
+    Serial.print("Voltage: ");
+    Serial.print(compensationVoltage, 3);
+    Serial.print(" V | TDS: ");
+    Serial.print(tdsValue, 0);
+    Serial.println(" ppm");
+
+    // Send to ThingSpeak
+    if (WiFi.status() == WL_CONNECTED) {
+      ThingSpeak.writeField(channelID, 1, tdsValue, apiKey);
+      Serial.println("Data sent to ThingSpeak ✔");
+    } else {
+      Serial.println("WiFi not connected ❌");
+    }
+
+    Serial.println("--------------------------------");
+  }
+}
